@@ -15,7 +15,7 @@ export default function Filters() {
         const res = await getUsersPublicData();
         if (!res) return;
         setContacts(res);
-      } catch (error) {
+      } catch {
         console.error("Error fetching contacts");
       }
     };

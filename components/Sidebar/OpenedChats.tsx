@@ -1,10 +1,8 @@
 'use client'
-import { getChats } from "@/app/actions/chat/getChats";
 import { useChatContext } from "@/context/ChatContext";
 import { UserPublicData } from "@/types/UserPublicData";
 import { ArrowRight, UserIcon } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 export type openedChats = {
   chatID: number;
@@ -12,7 +10,7 @@ export type openedChats = {
 };
 
 export default function OpenedChats() {
-  const { chatCollection, setChatCollection } = useChatContext();
+  const { chatCollection } = useChatContext();
 
   return (
     <ul className="flex flex-col mt-5 space-y-2">

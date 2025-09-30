@@ -4,7 +4,7 @@ const JWT_SECRET = process.env.JWT_SECRET!;
 
 export interface TokenPayload {
   userID: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export function createToken(

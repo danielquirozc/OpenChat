@@ -1,17 +1,9 @@
 "use client";
 
-import { useChatContext } from "@/context/ChatContext";
 import { UserPublicData } from "@/types/UserPublicData";
 import MessageList from "./MessageList";
 import SendMessageForm from "./SendMessageForm";
 import { useMessages } from "@/hooks/useMessages";
-
-type PublicContactData = {
-  user_id: number;
-  username: string | null;
-  avatar: string | null;
-  created_at: Date | null;
-} | null;
 
 type ChatProps = {
   contact: UserPublicData | null;

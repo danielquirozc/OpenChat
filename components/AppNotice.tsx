@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Modal from "./Shared/Modal";
-import { Hammer } from "lucide-react";
 
 export default function AlphaNotice() {
   const [show, setShow] = useState(false);
