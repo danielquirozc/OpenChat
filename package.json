@@ -7,8 +7,15 @@
     "postinstall": "pnpx prisma generate",
     "build": "pnpx prisma generate && next build",
     "dev": "node server.js",
-    "start": "next start",
+    "start": "node server.js",
     "lint": "next lint"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "prisma"
+    ]
   },
   "dependencies": {
     "@prisma/client": "^6.16.2",
