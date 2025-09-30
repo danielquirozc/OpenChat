@@ -12,7 +12,7 @@ type ChatProps = {
 
 export default function Chat({ contact, chatID }: ChatProps) {
   if (!contact) return null;
-  const { messages, sendMessage, isConnected } = useMessages({ chatID });
+  const { messages, sendMessage } = useMessages({ chatID });
   
   return (
     <div className="flex flex-col items-center bg-gray-200 w-full h-screen">

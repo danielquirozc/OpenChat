@@ -13,7 +13,7 @@ export function useMessages({ chatID }: useMessagesArgs) {
   const [messages, setMessages] = useState<message[]>([]);
   const [currentChatID, setcurrentChatID] = useState<number | null>(null);
   const [isSending, setIsSending] = useState(false);
-  const { socket, emit, on, isConnected } = useSocket();
+  const { socket, emit, on, } = useSocket();
 
   useEffect(() => {
     setcurrentChatID(chatID);
@@ -94,5 +94,5 @@ export function useMessages({ chatID }: useMessagesArgs) {
     [socket, currentChatID, isSending, emit]
   );
 
-  return { messages, setMessages, sendMessage, isSending, isConnected };
+  return { messages, setMessages, sendMessage, isSending };
 }
