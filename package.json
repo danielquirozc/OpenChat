@@ -4,10 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node server.js",
+    "prebuild": "pnpm run generate --binary-targets native",
     "build": "next build",
+    "dev": "node server.js",
     "start": "node server.js",
-    "postinstall": "prisma generate",
+    "generate": "prisma generate",
     "lint": "next lint"
   },
   "dependencies": {
