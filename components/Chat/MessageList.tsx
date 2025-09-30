@@ -7,7 +7,7 @@ type MessageListProps = {
 
 export default function MessageList({ messages, receiverID }: MessageListProps) {
   return (
-    <ul className="inline-flex flex-col mt-4 p-4 flex-1 w-full">
+    <ul className="inline-flex flex-col mt-4 p-4 flex-1 w-full overflow-y-scroll">
       {messages.map(({ content, sender_id}, index) => (
         <li
           key={index}

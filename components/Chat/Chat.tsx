@@ -15,7 +15,7 @@ export default function Chat({ contact, chatID }: ChatProps) {
   const { messages, sendMessage, isConnected } = useMessages({ chatID });
   
   return (
-    <div className="flex flex-col items-center bg-gray-200 w-full min-h-screen">
+    <div className="flex flex-col items-center bg-gray-200 w-full h-screen">
       <div className="flex items-center bg-white text-gray-600 shadow w-full font-medium p-3">
         {contact.avatar && (
           <img
