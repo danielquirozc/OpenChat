@@ -4,6 +4,8 @@ import { formatZodError } from "./formatZodError";
 import { ZodError } from "zod";
 
 export function handleApiError(error: unknown): Response {
+  console.error(error);
+  
   if (error instanceof AppError) {
     return new Response(
       JSON.stringify({ type: ApiErrorType.AppError, message: error.message }),
