@@ -37,12 +37,6 @@ export function useMessages({ chatID }: useMessagesArgs) {
       console.log("📨 Mensaje recibido:", newMessage);
 
       setMessages((prevMessages) => {
-        // Evita duplicados
-        const exists = prevMessages.some((m) => m.id === newMessage.id);
-        if (exists) {
-          console.log("⚠️ Mensaje duplicado, ignorando");
-          return prevMessages;
-        }
         return [...prevMessages, newMessage];
       });
     };
@@ -88,10 +82,7 @@ export function useMessages({ chatID }: useMessagesArgs) {
           alert("Error al guardar el mensaje");
           return;
         }
-
-        console.log("📤 Enviando mensaje por socket...", newMessage);
-
-        // Envía con confirmación
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
         emit(`message:new`, newMessage);
       } catch (error) {
         console.error("❌ Error en sendMessage:", error);

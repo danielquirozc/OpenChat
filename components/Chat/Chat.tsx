@@ -27,11 +27,7 @@ export default function Chat({ contact, chatID }: ChatProps) {
         <h2 className="text-lg">{contact.username}</h2>
       </div>
       <MessageList messages={messages} receiverID={contact.id} />
-      {isConnected ? <SendMessageForm sendMessage={sendMessage} /> : (
-        <div className="flex justify-center items-center w-full h-full">
-          <p className="text-gray-500">Conectando con el servidor...</p>
-        </div>
-      )}
+      <SendMessageForm sendMessage={sendMessage} />
     </div>
   );
 }
