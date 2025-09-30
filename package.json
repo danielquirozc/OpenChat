@@ -4,11 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "prebuild": "pnpm run generate",
-    "build": "next build",
+    "postinstall": "prisma generate",
+    "build": "prisma generate && next build",
     "dev": "node server.js",
     "start": "node server.js",
-    "generate": "prisma generate",
     "lint": "next lint"
   },
   "dependencies": {
