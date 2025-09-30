@@ -1,18 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { verifyToken } from "@/lib/auth/verifyToken";
-import { cookies } from "next/headers";
+import { requireAuth } from "./lib/auth/auth";
 export async function middleware(req: NextRequest) {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("authToken")?.value;
-
-  if (!token) {
-    return NextResponse.redirect(new URL("/", req.url));
-  }
-  
-  const payload = await verifyToken(token);
-  
-  if (!payload) {    
+  try {
+    await requireAuth();
+  } catch {
     return NextResponse.redirect(new URL("/", req.url));
   }
   return NextResponse.next();

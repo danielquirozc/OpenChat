@@ -1,19 +1,15 @@
-'use server'
+"use server";
 
-import { verifyToken } from "@/lib/auth/verifyToken";
-import { prisma } from "@/lib/prisma"
-import { cookies } from "next/headers";
+import { getCurrentUser } from "@/lib/auth/auth";
+import { prisma } from "@/lib/prisma";
 import { createChat } from "./createChat";
 
 type getChatArgs = {
-  contactID: number
-}
+  contactID: number;
+};
 
 export async function getChat({ contactID }: getChatArgs) {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("authToken")?.value;
-  if (!token) return null;
-  const currentUser = await verifyToken(token);
+  const currentUser = await getCurrentUser();
   if (!currentUser) return null;
   const chat = await prisma.chat.findFirst({
     where: {
@@ -29,8 +25,8 @@ export async function getChat({ contactID }: getChatArgs) {
 
   if (!chat) {
     const newChat = await createChat({ contactID });
-    return newChat
+    return newChat;
   }
 
-  return chat
+  return chat;
 }

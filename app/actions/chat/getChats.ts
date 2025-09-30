@@ -1,14 +1,11 @@
 "use server";
 
-import { verifyToken } from "@/lib/auth/verifyToken";
+import { getCurrentUser } from "@/lib/auth/auth";
 import { prisma } from "@/lib/prisma";
-import { cookies } from "next/headers";
 
 export async function getChats() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("authToken")?.value;
-  if (!token) return [];
-  const currentUser = await verifyToken(token);
+  const currentUser = await getCurrentUser();
+
   if (!currentUser) return [];
   const chats = await prisma.user_chat.findMany({
     where: {
