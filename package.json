@@ -7,7 +7,7 @@
     "postinstall": "pnpx prisma generate",
     "build": "pnpx prisma generate && next build",
     "dev": "node server.js",
-    "start": "node server.js",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
