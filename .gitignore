@@ -14,7 +14,7 @@
 /coverage
 
 # prisma
-/prisma
+/prisma/generated
 
 # next.js
 /.next/
