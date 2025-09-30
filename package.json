@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "postinstall": "prisma generate",
-    "build": "prisma generate && next build",
+    "postinstall": "pnpx prisma generate",
+    "build": "pnpx prisma generate && next build",
     "dev": "node server.js",
     "start": "node server.js",
     "lint": "next lint"
