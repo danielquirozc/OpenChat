@@ -8,7 +8,7 @@ export default function ChatLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <section className="flex w-full font-sans">
+    <section className="flex w-full min-h-dvh font-sans">
       <SocketProvider>
         <ChatProvider>
           <Sidebar />

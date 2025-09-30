@@ -12,7 +12,7 @@ type ChatProps = {
 
 export default function Chat({ contact, chatID }: ChatProps) {
   if (!contact) return null;
-  const { messages, sendMessage } = useMessages({ chatID });
+  const { messages, sendMessage, isConnected } = useMessages({ chatID });
   
   return (
     <div className="flex flex-col items-center bg-gray-200 w-full min-h-screen">
@@ -27,7 +27,11 @@ export default function Chat({ contact, chatID }: ChatProps) {
         <h2 className="text-lg">{contact.username}</h2>
       </div>
       <MessageList messages={messages} receiverID={contact.id} />
-      <SendMessageForm sendMessage={sendMessage} />
+      {isConnected ? <SendMessageForm sendMessage={sendMessage} /> : (
+        <div className="flex justify-center items-center w-full h-full">
+          <p className="text-gray-500">Conectando con el servidor...</p>
+        </div>
+      )}
     </div>
   );
 }

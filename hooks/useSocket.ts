@@ -1,22 +1,44 @@
+'use client'
 import { useSocketContext } from "@/context/SocketContext";
 import { useCallback } from "react";
 
 type EventCallback = (...args: any[]) => void;
 
 export function useSocket() {
-  const { socket } = useSocketContext();
+  const { socket, isConnected } = useSocketContext();
 
-  const emit = useCallback((event: string, data?: any) => {
-    socket?.emit(event, data);
-  }, []);
+  // Añade soporte para callback de confirmación (ACK)
+  const emit = useCallback(
+    (event: string, data?: any, callback?: Function) => {
+      if (!socket) {
+        console.warn(`Socket no disponible. Evento: ${event}`);
+        return;
+      }
 
-  const on = useCallback((event: string, callback: EventCallback) => {
-    socket?.on(event, callback);
+      if (callback) {
+        socket.emit(event, data, callback);
+      } else {
+        socket.emit(event, data);
+      }
+    },
+    [socket]
+  );
 
-    return () => {
-      socket?.off(event, callback);
-    };
-  }, []);
+  const on = useCallback(
+    (event: string, callback: EventCallback) => {
+      if (!socket) {
+        console.warn(`Socket no disponible para listener: ${event}`);
+        return () => {};
+      }
 
-  return { socket, on, emit };
+      socket.on(event, callback);
+
+      return () => {
+        socket.off(event, callback);
+      };
+    },
+    [socket]
+  );
+
+  return { socket, on, emit, isConnected };
 }
