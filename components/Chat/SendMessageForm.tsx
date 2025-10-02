@@ -22,7 +22,13 @@ export default function SendMessageForm({
         <p className="text-gray-700 border-r text-sm border-gray-400 p-2">
           Mensaje
         </p>
-        <input type="text" name="message" className="px-2 text-sm w-full" />
+        <input
+          type="text"
+          autoComplete="off"
+          aria-label="message"
+          name="message"
+          className="px-2 text-sm w-full"
+        />
       </label>
       <button
         type="submit"
