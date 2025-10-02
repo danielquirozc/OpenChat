@@ -9,7 +9,7 @@ export type openedChats = {
   contact: UserPublicData;
 };
 
-export default function OpenedChats({ sidebarIsOpen }: { sidebarIsOpen: boolean }) {
+export default function OpenedChats() {
   const { chatCollection } = useChatContext();
 
   return (
@@ -29,8 +29,8 @@ export default function OpenedChats({ sidebarIsOpen }: { sidebarIsOpen: boolean 
           ) : (
             <UserIcon className="w-8 h-8 bg-gray-200 p-1 rounded-full text-gray-500 inline-block" />
           )}
-          <span className={`flex-grow text-gray-700 ${!sidebarIsOpen ? 'hidden' : 'inline-block'}`}>{chat.contact.username}</span>
-          <ArrowRight className={`text-right text-gray-300 group-hover:text-gray-500 duration-300 ${!sidebarIsOpen ? 'hidden' : 'inline-block'}`} />
+          <span className={`flex-grow text-gray-700 `}>{chat.contact.username}</span>
+          <ArrowRight className={`text-right text-gray-300 group-hover:text-gray-500 duration-300`} />
         </Link>
       ))}
       {chatCollection?.length === 0 && (

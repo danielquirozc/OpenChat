@@ -1,37 +1,20 @@
 "use client";
-import { PanelRightClose, PanelRightOpen } from "lucide-react";
-import { useState } from "react";
 import Filters from "./Filters";
 import OpenedChats from "./OpenedChats";
+import { useSidebarCollapsed } from "@/stores/useSidebarCollapsed";
 
 export default function Sidebar() {
-  const [openSidebar, setOpenSidebar] = useState(false);
+  const { collapsed } = useSidebarCollapsed();
   return (
-    <aside className={`p-5 ${openSidebar ? "min-w-1/5" : null} border-r border-gray-300 min-h-screen`}>
+    <aside className={`p-5 duration-300 ${collapsed ? "transform -translate-x-full" : "transform translate-x-0"} shadow-2xl absolute md:static z-50 bg-white border-r border-gray-300 min-h-full`}>
       <div className="inline-flex items-center justify-start w-full text-xl font-bold">
-        {openSidebar && (<div className="">
+        <div>
           <span className={`text-[#47428D]`}>Open</span>
           <span>Chat</span>
-        </div>)}
-        <button
-          onClick={() => setOpenSidebar(!openSidebar)}
-          className={`text-gray-500 inline-block bg-gray-200 p-1 rounded ${openSidebar ? "ml-auto" : "m-auto"}`}
-        >
-          {!openSidebar ? (
-            <PanelRightClose
-              className="m-auto"
-              size={20}
-            />
-          ) : (
-            <PanelRightOpen
-              className="m-auto"
-              size={20}
-            />
-          )}
-        </button>
+        </div>
       </div>
-      {openSidebar && <Filters />}
-      <OpenedChats sidebarIsOpen={openSidebar} />
+      <Filters />
+      <OpenedChats />
     </aside>
   );
 }

@@ -54,9 +54,9 @@ export default function DefaultUserName() {
   return (
     <div>
       <Modal>
-        <div className="bg-white font-sans p-5 rounded-xl shadow-lg">
+        <div className="bg-white font-sans p-5 rounded-xl shadow-lg m-5">
           <h2 className="text-2xl text-center font-bold mb-4">
-            Bienvenido a MeChat!
+            Bienvenido a OpenChat!
           </h2>
           <div className="">
             <p className="text-gray-700 max-w-96 mb-4">
