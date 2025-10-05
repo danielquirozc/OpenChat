@@ -1,0 +1,1 @@
+export type JWTPayload = { userID: number, exp: number };

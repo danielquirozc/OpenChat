@@ -1,7 +1,7 @@
-'use server'
+"use server";
 
 import { AppError } from "@/lib/errors/AppError";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma/prisma";
 import bcrypt from "bcrypt";
 
 export async function createUser(name: string, password: string) {
@@ -20,6 +20,6 @@ export async function createUser(name: string, password: string) {
       password_hash: passwordHash,
     },
   });
-  
+
   return { message: "User created successfully", data };
 }

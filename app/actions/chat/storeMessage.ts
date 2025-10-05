@@ -1,14 +1,12 @@
-'use server'
+"use server";
 
-import { getCurrentUser } from "@/lib/auth/auth"
-import { verifyToken } from "@/lib/auth/verifyToken"
-import { prisma } from "@/lib/prisma"
-import { cookies } from "next/headers"
+import { getCurrentUser } from "@/lib/auth/auth";
+import { prisma } from "@/lib/prisma/prisma";
 
 type storeMessageArgs = {
-  content: string
-  chatID: number
-}
+  content: string;
+  chatID: number;
+};
 
 export async function storeMessage({ content, chatID }: storeMessageArgs) {
   const currentUser = await getCurrentUser();
@@ -20,5 +18,5 @@ export async function storeMessage({ content, chatID }: storeMessageArgs) {
       content: content,
     },
   });
-  return newMessage
+  return newMessage;
 }

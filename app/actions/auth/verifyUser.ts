@@ -1,9 +1,15 @@
-'use server'
+"use server";
 
 import { AppError } from "@/lib/errors/AppError";
-import { prisma } from "@/lib/prisma"
-import bcrypt from "bcrypt"
-export async function verifyUser({ username, password }: { username: string; password: string }) {
+import { prisma } from "@/lib/prisma/prisma";
+import bcrypt from "bcrypt";
+export async function verifyUser({
+  username,
+  password,
+}: {
+  username: string;
+  password: string;
+}) {
   const user = await prisma.user.findUnique({
     where: {
       username,

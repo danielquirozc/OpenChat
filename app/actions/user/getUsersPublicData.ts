@@ -1,5 +1,5 @@
-"use server"
-import { prisma } from "@/lib/prisma"
+"use server";
+import { prisma } from "@/lib/prisma/prisma";
 
 export async function getUsersPublicData() {
   const users = await prisma.user.findMany({
@@ -7,9 +7,9 @@ export async function getUsersPublicData() {
       id: true,
       username: true,
       avatar: true,
-      created_at: true
-    }
-  })
-  
-  return users
+      created_at: true,
+    },
+  });
+
+  return users;
 }

@@ -1,7 +1,7 @@
 "use server";
 
 import { getCurrentUser } from "@/lib/auth/auth";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma/prisma";
 
 export async function getChats() {
   const currentUser = await getCurrentUser();
@@ -15,6 +15,10 @@ export async function getChats() {
       chat: {
         select: {
           id: true,
+          message: {
+            take: 1,
+            orderBy: { created_at: "desc" },
+          },
           user_chat: {
             where: { user_id: { not: currentUser.userID } }, // excluye a ti mismo
             select: {
@@ -22,7 +26,7 @@ export async function getChats() {
                 select: {
                   id: true,
                   username: true,
-                  avatar: true, // solo lo que necesites
+                  avatar: true,
                   created_at: true,
                 },
               },
@@ -30,11 +34,12 @@ export async function getChats() {
           },
         },
       },
-    },
+    }
   });
   const mappedChats = chats.map(({ chat }) => ({
     chatID: chat.id,
     contact: chat.user_chat[0].user,
+    lastMessage: chat.message[0] || null,
   }));
 
   return mappedChats;
