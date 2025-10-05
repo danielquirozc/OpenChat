@@ -1,39 +1,51 @@
 "use client";
+import { getChat } from "@/app/actions/chat/getChat";
+import { getChatDetails } from "@/app/actions/chat/getChatDetails";
 import { getChats } from "@/app/actions/chat/getChats";
-import { openedChats } from "@/components/Sidebar/OpenedChats";
+import { currentActiveChats } from "@/types/CurrentActiveChats";
 import { createContext, useContext, useEffect, useState } from "react";
 
 type ChatContextType = {
-  setChatCollection: (chats: openedChats[]) => void;
-  chatCollection: openedChats[];
-  setChatID: (id: number) => void;
-  chatID: number | null;
-  updateChatCollection: () => void
+  setChatCollection: (chats: currentActiveChats[]) => void;
+  chatCollection: currentActiveChats[];
+  openChatByContact: (contactID: number) => Promise<void>;
+  currentChat: currentActiveChats | null;
+  setCurrentChat: (chat: currentActiveChats | null) => void;
 };
 
 const ChatContext = createContext<ChatContextType>({
   setChatCollection: () => {},
   chatCollection: [],
-  setChatID: () => {},
-  chatID: null,
-  updateChatCollection: () => {}
+  currentChat: null,
+  openChatByContact: async () => { },
+  setCurrentChat: () => {},
 });
 
 export function ChatProvider({ children }: { children: React.ReactNode }) {
-  const [chatID, setChatID] = useState<number | null>(null);
-  const [chatCollection, setChatCollection] = useState<openedChats[]>([]);
+  const [chatCollection, setChatCollection] = useState<currentActiveChats[]>([]);
+  const [currentChat, setCurrentChat] = useState<currentActiveChats | null>(null);
 
   const fetchOpenedChats = async () => {
-    const openedChats = await getChats();
+    const openedChats = await getChats();    
     setChatCollection(openedChats);
   };
 
-  useEffect(() => {
+  useEffect(() => {    
     fetchOpenedChats();
   }, []);
 
-  const updateChatCollection = () => {
-    fetchOpenedChats()
+  const openChatByContact = async (contactID: number) => {
+    const chatExists = chatCollection.filter((chat) => chat.contact.id === contactID);
+    if (chatExists.length > 0) {
+      setCurrentChat(chatExists[0]);
+      return;
+    };
+    const chat = await getChat({ contactID });
+    if (!chat) return;
+    const chatDetails = await getChatDetails({ chatID: chat.id });
+    if (!chatDetails) return;
+    setCurrentChat(chatDetails);
+    setChatCollection((prevChats) => [...prevChats, chatDetails]);
   };
 
   return (
@@ -41,9 +53,9 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       value={{
         chatCollection,
         setChatCollection,
-        setChatID,
-        chatID,
-        updateChatCollection
+        openChatByContact,
+        currentChat,
+        setCurrentChat
       }}
     >
       {children}

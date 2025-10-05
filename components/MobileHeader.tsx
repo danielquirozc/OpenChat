@@ -3,7 +3,7 @@ import { useSidebarCollapsed } from "@/stores/useSidebarCollapsed";
 import { MenuIcon } from "lucide-react";
 
 export default function MobileHeader() {
-  const { toggleCollapsed, collapsed } = useSidebarCollapsed();
+  const { toggleCollapsed } = useSidebarCollapsed();
   return (
     <header className="flex md:hidden items-center border-b border-gray-300 sticky top-0 z-50 bg-white">
       <button
